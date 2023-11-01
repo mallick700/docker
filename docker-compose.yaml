@@ -9,3 +9,7 @@ services:
     build:
       context: ./backend
       dockerfile: LoginDockerfile
+  httpd:
+    build:
+      context: ./httpd
+      dockerfile: HttpdDockerfile
