@@ -1,0 +1,11 @@
+version: '3'
+services:
+  webapp:
+    build:
+      context: ./webapp
+    image: my-webapp:latest
+  backend:
+    build:
+      context: ./backend
+    image: my-backend:latest
+
