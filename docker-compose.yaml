@@ -3,9 +3,9 @@ services:
   webapp:
     build:
       context: ./webapp
-    image: my-webapp:latest
+      dockerfile: WebappDockerfile
+
   backend:
     build:
       context: ./backend
-    image: my-backend:latest
-
+      dockerfile: LoginDockerfile
