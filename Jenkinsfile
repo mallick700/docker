@@ -22,7 +22,6 @@ pipeline {
                         withDockerServer([credentialsId: DOCKER_HUB_CREDENTIALS]) {
                             withDockerRegistry([url: 'https://index.docker.io/v1/']) {
                                 for (def image in images) {
-                                    sh "docker pull ${image}" // Pull to ensure layers are available
                                     sh "docker push ${image}"
                                 }
                             }
