@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_HUB_CREDENTIALS = credentials('docker_cred')
-        COMPOSE_FILE = docker-compose.yaml
+    
     }
 
     environment {
