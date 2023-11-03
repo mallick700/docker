@@ -1,14 +1,11 @@
 pipeline {
     agent any
 
-    environment {
-        DOCKER_HUB_CREDENTIALS = credentials('docker_cred')
-    
-    }
+   
 
     environment {
         DOCKER_HUB_CREDENTIALS = credentials('docker_cred')
-        DOCKER_COMPOSE_FILE = 'your-docker-compose.yml'
+        DOCKER_COMPOSE_FILE = 'docker-compose.yml'
     }
 
     stages {
