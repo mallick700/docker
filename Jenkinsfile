@@ -6,30 +6,24 @@ pipeline {
         COMPOSE_FILE = docker-compose.yaml
     }
 
+    environment {
+        DOCKER_HUB_CREDENTIALS = credentials('docker_cred')
+        DOCKER_COMPOSE_FILE = 'your-docker-compose.yml'
+    }
+
     stages {
         stage('Build and Push Docker Images') {
             steps {
                 script {
-                    sh 'docker-compose build '
-                    def images = [
-                        'image1:tag1',
-                        'image2:tag2',
-                        'image3:tag3',
-                        // Add more images as needed
-                    ]
+                    // Build Docker images using Docker Compose
+                    sh "docker-compose -f ${DOCKER_COMPOSE_FILE} build"
 
-                    try {
-                        // Authenticate with Docker Hub
-                        withDockerServer([credentialsId: DOCKER_HUB_CREDENTIALS]) {
-                            withDockerRegistry([url: 'https://index.docker.io/v1/']) {
-                                for (def image in images) {
-                                    sh "docker push ${image}"
-                                }
-                            }
+                    // Authenticate with Docker Hub
+                    withDockerServer([credentialsId: DOCKER_HUB_CREDENTIALS]) {
+                        withDockerRegistry([url: 'https://index.docker.io/v1/']) {
+                            // Push all images defined in the Compose file
+                            sh "docker-compose -f ${DOCKER_COMPOSE_FILE} push"
                         }
-                    } catch (Exception e) {
-                        currentBuild.result = 'FAILURE'
-                        error("Failed to build and push Docker images: ${e.message}")
                     }
                 }
             }
