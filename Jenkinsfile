@@ -9,14 +9,20 @@ pipeline {
         stage('Build and Push Docker Images') {
             steps {
                 script {
-                     withDockerRegistry(credentialsId: 'docker_cred', [url: 'https://index.docker.io/v1/mallick700/dockercompose])' {
-                    sh 'docker-compose build '
-                    sh 'docker-compose push'
+                    echo 'Starting Docker build'
+                    sh 'docker-compose build'
+                    echo 'Docker build completed'
+
+                    withDockerRegistry(credentialsId: 'docker_cred', url: 'https://index.docker.io/v1') {
+                        echo 'Starting Docker push'
+                        sh 'docker-compose push'
+                        echo 'Docker push completed'
+                    }
                 }
             }
         }
     }
-    }
+
     post {
         always {
             sh 'docker logout'
