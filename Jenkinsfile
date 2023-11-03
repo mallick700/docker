@@ -9,6 +9,7 @@ pipeline {
         stage('Build and Push Docker Images') {
             steps {
                 script {
+                     withDockerRegistry(credentialsId: 'docker_cred') {
                     sh 'docker-compose build '
                     sh 'docker-compose push'
                 }
