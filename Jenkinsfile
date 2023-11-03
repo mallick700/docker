@@ -4,8 +4,9 @@ pipeline {
    
 
     environment {
+        GITHUB_REPO = 'https://github.com/mallick700/docker.git'
         DOCKER_HUB_CREDENTIALS = credentials('docker_cred')
-        DOCKER_COMPOSE_FILE = 'docker-compose.yml'
+        DOCKER_COMPOSE_FILE = 'docker/docker-compose.yaml'
     }
 
     stages {
